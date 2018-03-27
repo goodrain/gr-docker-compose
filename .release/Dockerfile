@@ -1,4 +1,0 @@
-FROM alpine:3.4
-ENV PROGRAM_NAME gr-docker-compose
-ENV PROGRAM_VERSION 170607
-COPY pkg.tgz /
