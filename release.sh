@@ -8,10 +8,10 @@ rm -fr $releasedir
 mkdir -p $releasedir
 
 # build files
-program=gr-docker-compose
-vers=170607
+program=gr-dc-compose
+vers=180327
 
-mkdir $releasedir/usr/local -p
+mkdir -p $releasedir/usr/local 
 rsync -a --delete --progress usr/local/ $releasedir/usr/local
 
 #### add to docker images####
@@ -26,9 +26,11 @@ ENV PROGRAM_VERSION $vers
 COPY pkg.tgz /
 EOF
 
-docker build -t hub.goodrain.com/dc-deploy/archiver:${program} .
-docker push hub.goodrain.com/dc-deploy/archiver:${program}
+docker build -t rainbond/archiver:${program} .
+docker push rainbond/archiver:${program}
 
 cd ..
 
-echo "run <docker run --rm -v /var/run/docker.sock:/var/run/docker.sock hub.goodrain.com/dc-deploy/archiver ${program}> for install"
+rm -fr $releasedir
+
+echo "run <docker run --rm -v /var/run/docker.sock:/var/run/docker.sock rainbond/archiver ${program}> for install"
